@@ -65,12 +65,12 @@ async def withdraw_start(message: types.Message, state: FSMContext, session: Asy
 
 @router.message(WithdrawStates.waiting_for_account)
 async def withdraw_account(message: types.Message, state: FSMContext):
-    if not message.text.isdigit() or len(message.text) != 9:
-        await message.answer(
-            "❌ ID должен содержать только 9 цифр.\n"
-            "Пожалуйста, введите корректный ID пользователя."
-        )
-        return
+    # if not message.text.isdigit() or len(message.text) != 9:
+    #     await message.answer(
+    #         "❌ ID должен содержать только 9 цифр.\n"
+    #         "Пожалуйста, введите корректный ID пользователя."
+    #     )
+    #     return
 
     user_id = int(message.text)
     user = await find_user(user_id)

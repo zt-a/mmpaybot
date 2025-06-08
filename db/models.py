@@ -91,11 +91,11 @@ class DepositRequest(Base):
     confirmed_by_id = Column(BigInteger, ForeignKey('admins.id'), nullable=True)
     confirmed_at = Column(TIMESTAMP(timezone=True), nullable=True)
 
-    @validates('account_id')
-    def validate_account_id(self, key, value):
-        if not (value.isdigit() and len(value) == 9):
-            raise ValueError("account_id должен содержать ровно 9 цифр")
-        return value
+    # @validates('account_id')
+    # def validate_account_id(self, key, value):
+    #     if not (value.isdigit() and len(value) == 9 or len(value) == 10 ):
+    #         raise ValueError("account_id должен содержать ровно 9 цифр")
+    #     return value
 
 
 class WithdrawRequest(Base):
@@ -115,11 +115,11 @@ class WithdrawRequest(Base):
     payment_user_id = Column(BigInteger, ForeignKey('payment_user.id'), nullable=True)
     payment_user = relationship("PaymentUser", back_populates="withdraw_requests")
 
-    @validates('account_id')
-    def validate_account_id(self, key, value):
-        if not (value.isdigit() and len(value) == 9):
-            raise ValueError("account_id должен содержать ровно 9 цифр")
-        return value
+    # @validates('account_id')
+    # def validate_account_id(self, key, value):
+    #     if not (value.isdigit() and len(value) == 9 or len(value) == 10):
+    #         raise ValueError("account_id должен содержать ровно 9 цифр")
+    #     return value
 
 
 class TransactionLog(Base):

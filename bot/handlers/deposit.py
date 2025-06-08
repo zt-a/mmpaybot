@@ -57,12 +57,12 @@ async def deposit_start(message: types.Message, state: FSMContext, session: Asyn
 @router.message(DepositStates.waiting_for_account)
 async def deposit_account(message: types.Message, state: FSMContext):
     
-    if not message.text.isdigit() or len(message.text) != 9:
-        await message.answer(
-            "❌ ID должен содержать только 9 цифр.\n"
-            "Пожалуйста, введите корректный ID пользователя."
-        )
-        return
+    # if not message.text.isdigit() or len(message.text) != 9:
+    #     await message.answer(
+    #         "❌ ID должен содержать только 9 цифр.\n"
+    #         "Пожалуйста, введите корректный ID пользователя."
+    #     )
+    #     return
 
     user_id = int(message.text)
     user = await find_user(user_id)
