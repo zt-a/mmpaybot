@@ -8,6 +8,7 @@ from bot.keyboards.inline import get_admin_buttons
 from core.api.cashdesk_api import find_user, payout_user
 from db.models import Admin, Bank, PaymentUser, User, WithdrawRequest
 from db.services.admin import get_active_admin
+from db.services.user import get_or_create_user
 from db.services.withdraw import create_withdraw, update_withdraw_status
 from utils.logger import logger
 from aiogram.types import FSInputFile
@@ -31,6 +32,18 @@ command = 'withdraw'
 @router.message(Command(command))
 async def withdraw_start(message: types.Message, state: FSMContext, session: AsyncSession):
         # Получаем активного админа
+    try:
+        user = await get_or_create_user(
+            session, 
+            telegram_id=message.from_user.id,
+            full_name=message.from_user.full_name,
+            username=message.from_user.username
+        )
+    except Exception as e:
+        logger.error(f"Ошибка при создании пользователя: {e}")
+        await message.answer("⚠️ Произошла ошибка при инициализации. Попробуйте позже.")
+        return
+
     admin_telegram_id = await get_active_admin(session)
     if not admin_telegram_id:
         await message.answer("❌ Нет активного администратора. Попробуйте позже.")
