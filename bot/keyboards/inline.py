@@ -89,14 +89,14 @@ admin_menu = ReplyKeyboardMarkup(
             KeyboardButton(text="Выход с админки"),
             KeyboardButton(text='Удаление админа')
         ],
-        [
-            KeyboardButton(text="Автопополнение включить"),
-            KeyboardButton(text='Автопополнение выключить')
-        ],
-        [
-            KeyboardButton(text="Автовывод включить"),
-            KeyboardButton(text='Автовывод выключить')
-        ]
+        # [
+        #     KeyboardButton(text="Автопополнение включить"),
+        #     KeyboardButton(text='Автопополнение выключить')
+        # ],
+        # [
+        #     KeyboardButton(text="Автовывод включить"),
+        #     KeyboardButton(text='Автовывод выключить')
+        # ]
         
     ],
     resize_keyboard=True,
