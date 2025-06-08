@@ -65,7 +65,7 @@ async def find_user(user_id: int):
 
 
 async def deposit_user(user_id: int, summa: int, lang: str = "ru"):
-    if AUTO_DEPOSIT:
+    if not AUTO_DEPOSIT:
         return {}
     confirm = md5(f"{user_id}:{HASH}")
 
@@ -86,7 +86,7 @@ async def deposit_user(user_id: int, summa: int, lang: str = "ru"):
             return await response.json()
 
 async def payout_user(user_id: int, code: str, lang: str = "ru"):
-    if AUTO_WITHDRAW:
+    if not AUTO_WITHDRAW:
         return {}
     
     confirm = md5(f"{user_id}:{HASH}")
