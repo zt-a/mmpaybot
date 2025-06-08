@@ -229,7 +229,10 @@ async def withdraw_code(message: types.Message, state: FSMContext, bot, session:
 
     # Получаем связанные реквизиты (PaymentUser)
     payment_user = await session.scalar(
-        select(PaymentUser).where(PaymentUser.user_id == db_user_id)
+        select(PaymentUser).where(
+            PaymentUser.user_id == db_user_id,
+            PaymentUser.bank_id == data.get('bank_id')
+        )
     )
 
     if not payment_user:
