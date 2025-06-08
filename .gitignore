@@ -3,3 +3,5 @@ migrations
 ts.py
 .env
 alembic.ini
+__pycache__
+media

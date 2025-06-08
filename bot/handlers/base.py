@@ -1,6 +1,5 @@
 from aiogram import Router, types, F
 from aiogram.filters import CommandStart
-from db.db import get_session
 from utils.logger import logger
 from bot.keyboards.inline import menu
 from aiogram.filters import Command
@@ -54,8 +53,19 @@ async def cancel(message: types.Message, state: FSMContext):
 
 @router.message(F.text == "🏠 Главное меню")
 @router.message(Command("menu"))
-async def main_menu(message: types.Message, state: FSMContext):
+async def main_menu(message: types.Message, session: AsyncSession, state: FSMContext):
     logger.info(f"User {message.from_user.id} returned to main menu.")
+    try:
+        user = await get_or_create_user(
+            session, 
+            telegram_id=message.from_user.id,
+            full_name=message.from_user.full_name,
+            username=message.from_user.username
+        )
+    except Exception as e:
+        logger.error(f"Ошибка при создании пользователя: {e}")
+        await message.answer("⚠️ Произошла ошибка при инициализации. Попробуйте позже.")
+        return
     await state.clear()
     await message.answer(
         "<b>🏠 Добро пожаловать в <u>Главное меню</u></b>\n\n"

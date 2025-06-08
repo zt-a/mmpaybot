@@ -25,6 +25,17 @@ command = 'deposit'
 @router.message(F.text == "📥 Пополнить")
 @router.message(Command(command))
 async def deposit_start(message: types.Message, state: FSMContext, session: AsyncSession):
+    try:
+        user = await get_or_create_user(
+            session, 
+            telegram_id=message.from_user.id,
+            full_name=message.from_user.full_name,
+            username=message.from_user.username
+        )
+    except Exception as e:
+        logger.error(f"Ошибка при создании пользователя: {e}")
+        await message.answer("⚠️ Произошла ошибка при инициализации. Попробуйте позже.")
+        return
     admin_telegram_id = await get_active_admin(session)
     if not admin_telegram_id:
         await message.answer("❌ Нет активного администратора. Попробуйте позже.")
