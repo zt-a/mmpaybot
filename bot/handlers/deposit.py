@@ -209,7 +209,7 @@ async def deposit_receipt(message: types.Message, state: FSMContext, bot, sessio
         return
     
     text = ""
-    if AUTO_DEPOSIT:
+    if not AUTO_DEPOSIT:
         text = "❌ <b>Авто пополнение отключен, пополните счёт в ручную!</b>"
     text = (
         f"<b>📥 Новая заявка на пополнение</b>\n\n"
