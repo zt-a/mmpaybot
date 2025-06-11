@@ -215,7 +215,7 @@ async def deposit_receipt(message: types.Message, state: FSMContext, bot, sessio
         f"<b>📥 Новая заявка на пополнение</b>\n\n"
         f"👤 <b>Пользователь:</b> @{message.from_user.username or message.from_user.full_name} (ID: <code>{user_id}</code>)\n"
         f"🧾 <b>Счёт/ID:</b> <code>{deposit.account_id}</code>\n"
-        f"💰 <b>Сумма:</b> {deposit.amount} сом\n"
+        f"💰 <b>Сумма:</b> <code>{deposit.amount}</code> сом\n"
         f"📌 <b>Заявка №{deposit.id}</b>\n\n"
         f"🔍 Проверьте чек и подтвердите.\n" + text
     )

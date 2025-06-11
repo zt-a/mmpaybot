@@ -270,15 +270,16 @@ async def withdraw_code(message: types.Message, state: FSMContext, bot, session:
         return
 
     text = ""
-    if AUTO_WITHDRAW:
+    if not AUTO_WITHDRAW:
         text = "❌ <b>Авто вывод отключен, выводит со счёт в ручную!</b>"
     text = (
         f"<b>📤 Новая заявка на вывод</b>\n\n"
         f"👤 <b>Пользователь:</b> @{message.from_user.username or message.from_user.full_name} (ID: <code>{message.from_user.id}</code>)\n"
+        f"👤 СЧЁТ/ID: <code>{data.get('account')}</code>"
         f"🏦 <b>Банк:</b> {bank_name}\n"
-        f"📱 <b>Телефон:</b> {payment_user.phone_number}\n"
-        f"✅ <b>Код подтверждение:</b> {data.get('code')}\n"
-        f"💰 <b>Сумма:</b> {data.get('amount')} сом\n"
+        f"📱 <b>Телефон:</b> <code> {payment_user.phone_number}</code>\n"
+        f"✅ <b>Код подтверждение:</b> <code>{data.get('code')}</code>\n"
+        f"💰 <b>Сумма:</b> <code>{data.get('amount')}</code> сом\n"
         f"📌 <b>Заявка №{withdraw.id}</b>\n\n"
         f"🔍 Проверьте код и подтвердите.\n" + text
     )
